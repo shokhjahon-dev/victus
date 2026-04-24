@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victus Ta'lim Platformasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 80px;
+            width: auto;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-center a {
+            text-decoration: none;
+            color: #1a3a5c;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-center a:hover {
+            color: #ff6b35;
+        }
+
+        .nav-center .btn-3d {
+            background: #1a3a5c;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .nav-center .btn-3d:hover {
+            background: #0f2438;
+            transform: translateY(-2px);
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #1a3a5c;
+            background: white;
+            color: #1a3a5c;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: #1a3a5c;
+            color: white;
+        }
+
+        .lang-btn.active {
+            background: #1a3a5c;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2438 0%, #1a3a5c 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 80px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1200px;
+            height: 1200px;
+            background-image: url("https://static.tildacdn.com/tild3563-3134-4862-b637-313462306166/wmremove-transformed.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.2;
+            animation: patternRotate 20s linear infinite;
+        }
+
+        @keyframes patternRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 72px;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        .books-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .books-stack {
+            position: relative;
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .book {
+            position: relative;
+            width: 100%;
+            height: 90px;
+            border-radius: 15px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2), 5px 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .book::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .book:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3), 8px 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .book span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-1 { background: linear-gradient(to right, #2a7fba, #4ea8de); }
+        .book-2 { background: linear-gradient(to right, #e07a3f, #ff8c42); }
+        .book-3 { background: linear-gradient(to right, #2a7fba, #4ea8de); }
+        .book-4 { background: linear-gradient(to right, #d97531, #f4a261); }
+
+        .decorative-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            left: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .decorative-circle::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        /* Subjects Section */
+        .subjects-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2438 0%, #1a3a5c 100%);
+            padding: 100px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subjects-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subject-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px 40px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            text-decoration: none;
+            color: #0f2438;
+            font-size: 24px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .subject-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        /* How to Use Section */
+        .how-to-section {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #e8f0f7 0%, #f5f8fb 100%);
+            padding: 120px 80px;
+        }
+
+        .how-to-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: #0f2438;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 350px;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            font-size: 72px;
+            font-weight: 900;
+            color: #0f2438;
+        }
+
+        .step-content h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f2438;
+        }
+
+        .step-content p {
+            font-size: 18px;
+            color: #4a5568;
+        }
+
+        .step-divider {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            background: #0f2438;
+            border-radius: 50%;
+        }
+
+        /* AI Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+
+        .chatbot-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .chatbot-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.2);
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 130px;
+            right: 30px;
+            width: 450px;
+            height: 650px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px 25px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chatbot-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .chatbot-info h3 {
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .ai-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            align-self: flex-start;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .message.bot .message-avatar {
+            background: white;
+            padding: 5px;
+        }
+
+        .message.bot .message-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            font-size: 20px;
+        }
+
+        .message-content {
+            background: white;
+            padding: 14px 18px;
+            border-radius: 15px;
+            max-width: 75%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .chatbot-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chatbot-input:focus {
+            border-color: #667eea;
+        }
+
+        .chatbot-send {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-send:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .chatbot-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 15px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .nav-center {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 20px;
+                font-size: 14px;
+            }
+
+            .language-selector {
+                order: 2;
+            }
+
+            .logo img {
+                height: 60px;
+            }
+
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 160px);
+                right: 20px;
+                bottom: 110px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 42px;
+            }
+
+            .subjects-section {
+                padding: 60px 20px;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .subjects-title {
+                font-size: 36px;
+            }
+
+            .how-to-section {
+                padding: 80px 20px;
+            }
+
+            .steps-container {
+                flex-direction: column;
+            }
+
+            .step-divider {
+                flex-direction: row;
+            }
+
+            .how-to-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="./,UKMJNHBGVSFD (1).png" alt="Victus Classroom">
+        </div>
+        <ul class="nav-center">
+            <li><a href="#home" data-translate="nav_home">Home</a></li>
+            <li><a href="./about.html" data-translate="nav_about">About Us</a></li>
+            <li><a href="./material.html" data-translate="nav_materials">Materiallar</a></li>
+            <li><a href="#3d" class="btn-3d" data-translate="nav_3d">3D Modellar</a></li>
+        </ul>
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="uz">O'zbek</button>
+            <button class="lang-btn" data-lang="ru">Русский</button>
+            <button class="lang-btn" data-lang="en">English</button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 data-translate="hero_title">Bring your ideas to life with 3D</h1>
+                <p data-translate="hero_desc">Anything you've even dreamed about is possible to realise just at the moment when you decided to win.</p>
+            </div>
+            <div class="books-container">
+                <div class="decorative-circle"></div>
+                <div class="books-stack">
+                    <a href="https://www.khanacademy.org/" class="book book-1"><span data-translate="book1">Learning Resources</span></a>
+                    <a href="https://www.baamboozle.com/" class="book book-2"><span data-translate="book2">Interactive GAMES</span></a>
+                    <a href="./material.html" class="book book-3"><span data-translate="book3">Study Materials</span></a>
+                    <a href="https://milliydastur.uz" class="book book-4"><span data-translate="book4">Practice Exercises</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="subjects-section" id="3d">
+        <h2 class="subjects-title" data-translate="subjects_title">3D FANLAR</h2>
+        <div class="subjects-grid">
+            <a href="htm.html" class="subject-card">
+                <div class="subject-icon">🧬</div>
+                <span data-translate="subject_bio">Biologiya</span>
+            </a>
+            <a href="ht.html" class="subject-card">
+                <div class="subject-icon">🧪</div>
+                <span data-translate="subject_chem">Kimyo</span>
+            </a>
+            <a href="./musiqa.html" class="subject-card">
+                <div class="subject-icon">🎵</div>
+                <span data-translate="subject_music">Musiqa</span>
+            </a>
+            <a href="./fizika.html" class="subject-card">
+                <div class="subject-icon">⚛️</div>
+                <span data-translate="subject_phys">Fizika</span>
+            </a>
+            <a href="./tarix.html" class="subject-card">
+                <div class="subject-icon">🏛️</div>
+                <span data-translate="subject_hist">Tarix</span>
+            </a>
+            <a href="./geografiya.html" class="subject-card">
+                <div class="subject-icon">🌏</div>
+                <span data-translate="subject_geo">Geografiya</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="how-to-section">
+        <h2 class="how-to-title" data-translate="howto_title">How to use our Website</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 data-translate="step1_title">Click</h3>
+                    <p data-translate="step1_desc">Choose a subject</p>
+                </div>
+            </div>
+            <div class="step-divider">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 data-translate="step2_title">Explore</h3>
+                    <p data-translate="step2_desc">Rotate, drag, interact in 3D</p>
+                </div>
+            </div>
+            <div class="step-divider">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 data-translate="step3_title">Understand</h3>
+                    <p data-translate="step3_desc">Concepts explained visually</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-button" id="chatbot-toggle">
+            <img src="./logoo.png" alt="AI">
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-header-left">
+                    <div class="chatbot-avatar">
+                        <img src="./logoo.png" alt="AI">
+                    </div>
+                    <div class="chatbot-info">
+                        <h3 data-translate="ai_title">Victus AI Assistant</h3>
+                        <span class="ai-badge">Powered by AI</span>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbot-close">×</button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot">
+                    <div class="message-avatar">
+                        <img src="./logoo.png" alt="AI">
+                    </div>
+                    <div class="message-content" data-translate="ai_welcome">
+                        Salom! Men Victus AI assistentiman. Sizga har qanday savolga javob berishga tayyorman - fanlar, ta'lim, umuman hayot haqida. Nimadan boshlaysiz? 😊
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Savolingizni yozing...">
+                <button class="chatbot-send" id="chatbot-send">📤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            uz: {
+                nav_home: "Bosh sahifa",
+                nav_about: "Biz haqimizda",
+                nav_materials: "Materiallar",
+                nav_3d: "3D Modellar",
+                hero_title: "3D bilan g'oyalaringizni hayotga aylantiring",
+                hero_desc: "Siz orzu qilgan hamma narsa g'alaba qozonishga qaror qilgan paytingizda amalga oshishi mumkin.",
+                book1: "O'quv resurslari",
+                book2: "Interaktiv O'YINLAR",
+                book3: "O'quv materiallari",
+                book4: "Amaliy mashqlar",
+                subjects_title: "3D FANLAR",
+                subject_bio: "Biologiya",
+                subject_chem: "Kimyo",
+                subject_music: "Musiqa",
+                subject_phys: "Fizika",
+                subject_hist: "Tarix",
+                subject_geo: "Geografiya",
+                howto_title: "Saytdan qanday foydalanish",
+                step1_title: "Bosing",
+                step1_desc: "Fanni tanlang",
+                step2_title: "O'rganing",
+                step2_desc: "3D formatda o'zlashtiring",
+                step3_title: "Tushuning",
+                step3_desc: "Vizual tushuntirishlar",
+                ai_title: "Victus AI Yordamchi",
+                ai_welcome: "Salom! Men Victus AI yordamchiman. Sizga har qanday savolga javob berishga tayyorman - fanlar, ta'lim, umuman hayot haqida. Nimadan boshlaysiz? 😊"
+            },
+            ru: {
+                nav_home: "Главная",
+                nav_about: "О нас",
+                nav_materials: "Материалы",
+                nav_3d: "3D Модели",
+                hero_title: "Воплотите свои идеи в жизнь с 3D",
+                hero_desc: "Всё, о чём вы мечтали, можно реализовать в тот момент, когда вы решили победить.",
+                book1: "Учебные ресурсы",
+                book2: "Интерактивные ИГРЫ",
+                book3: "Учебные материалы",
+                book4: "Практические упражнения",
+                subjects_title: "3D ПРЕДМЕТЫ",
+                subject_bio: "Биология",
+                subject_chem: "Химия",
+                subject_music: "Музыка",
+                subject_phys: "Физика",
+                subject_hist: "История",
+                subject_geo: "География",
+                howto_title: "Как использовать наш сайт",
+                step1_title: "Нажмите",
+                step1_desc: "Выберите предмет",
+                step2_title: "Изучайте",
+                step2_desc: "Взаимодействуйте в 3D",
+                step3_title: "Понимайте",
+                step3_desc: "Визуальные объяснения",
+                ai_title: "Victus AI Ассистент",
+                ai_welcome: "Здравствуйте! Я AI-ассистент Victus. Готов ответить на любые ваши вопросы - о науке, образовании и жизни в целом. С чего начнём? 😊"
+            },
+            en: {
+                nav_home: "Home",
+                nav_about: "About Us",
+                nav_materials: "Materials",
+                nav_3d: "3D Models",
+                hero_title: "Bring your ideas to life with 3D",
+                hero_desc: "Anything you've even dreamed about is possible to realise just at the moment when you decided to win.",
+                book1: "Learning Resources",
+                book2: "Interactive GAMES",
+                book3: "Study Materials",
+                book4: "Practice Exercises",
+                subjects_title: "3D SUBJECTS",
+                subject_bio: "Biology",
+                subject_chem: "Chemistry",
+                subject_music: "Music",
+                subject_phys: "Physics",
+                subject_hist: "History",
+                subject_geo: "Geography",
+                howto_title: "How to use our Website",
+                step1_title: "Click",
+                step1_desc: "Choose a subject",
+                step2_title: "Explore",
+                step2_desc: "Rotate, drag, interact in 3D",
+                step3_title: "Understand",
+                step3_desc: "Concepts explained visually",
+                ai_title: "Victus AI Assistant",
+                ai_welcome: "Hello! I'm Victus AI assistant. Ready to answer any questions - about subjects, education, or life in general. What shall we start with? 😊"
+            }
+        };
+
+        let currentLang = 'uz';
+
+        // Language switching
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferredLanguage', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.dataset.translate;
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update input placeholder
+            const inputPlaceholders = {
+                uz: "Savolingizni yozing...",
+                ru: "Напишите ваш вопрос...",
+                en: "Type your question..."
+            };
+            document.getElementById('chatbot-input').placeholder = inputPlaceholders[lang];
+        }
+
+        // Load saved language
+        const savedLang = localStorage.getItem('preferredLanguage') || 'uz';
+        switchLanguage(savedLang);
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            nav.style.boxShadow = window.scrollY > 50 
+                ? '0 4px 20px rgba(0, 0, 0, 0.15)' 
+                : '0 2px 10px rgba(0, 0, 0, 0.1)';
+        });
+
+        // AI Chatbot functionality
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        let isProcessing = false;
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.add('active');
+            chatbotInput.focus();
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            if (isUser) {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">👤</div>
+                    <div class="message-content">${text}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <img src="./logoo.png" alt="AI">
+                    </div>
+                    <div class="message-content">${text}</div>
+                `;
+            }
+            
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <img src="./logoo.png" alt="AI">
+                </div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            chatbotMessages.appendChild(typingDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) typingIndicator.remove();
+        }
+
+        // AI Responses based on language
+        function getAIResponse(message) {
+            const lower = message.toLowerCase();
+            const responses = {
+                uz: {
+                    greeting: "Assalomu alaykum! Sizga qanday yordam bera olaman? 😊",
+                    physics: "Fizika bo'yicha interaktiv simulyatsiyalarni ko'rish uchun '3D FANLAR' bo'limidan Fizikani tanlang. PhET simulyatsiyalarida ko'plab tajribalar mavjud! ⚛️",
+                    chemistry: "Kimyo bo'yicha 3D molekulalar va tajribalarni '3D FANLAR' bo'limidan topishingiz mumkin. Chem3D platformasida molekular strukturalarni o'rganishingiz mumkin! 🧪",
+                    history: "Tarix fanini 3D formatda o'rganish uchun CyArk platformasidan foydalaning. Jahon tarixiy yodgorliklarini virtual sayohat qiling! 🏛️",
+                    geography: "Google Earth 3D yordamida butun dunyoni virtual kashf eting. Tog'lar, okeanlar va shaharlarni ko'ring! 🌏",
+                    music: "Chrome Music Lab bilan musiqani o'rganing va yarating! Interaktiv vositalar sizni kutmoqda. 🎵",
+                    biology: "Biologiya bo'yicha 3D modellarni '3D FANLAR' bo'limidan ko'ring. Hujayralar, organlar va tirik organizmlarni o'rganing! 🧬",
+                    math: "Matematika bo'yicha yordam beray! Algebradan tortib geometriyagacha - savol bering, tushuntirib beraman. 📐",
+                    homework: "Uyga vazifangizga yordam beraman! Qaysi fan va qaysi mavzu bo'yicha yordam kerak? Masalani yuboring, birgalikda yechamiz! 📚",
+                    thanks: "Marhamat! Har doim yordam berishga tayyorman. Boshqa savol bormi? 😊",
+                    default: `"${message}" - qiziq savol! Savolingizni biroz boshqacha so'zlar bilan tushuntirsangiz yoki konkret fan/mavzu bo'yicha so'rasangiz yaxshiroq javob berishim mumkin. 🤔`
+                },
+                ru: {
+                    greeting: "Здравствуйте! Чем могу помочь? 😊",
+                    physics: "Для изучения физики через интерактивные симуляции перейдите в раздел '3D ПРЕДМЕТЫ' и выберите Физику. В PhET доступно множество экспериментов! ⚛️",
+                    chemistry: "3D молекулы и эксперименты по химии можно найти в разделе '3D ПРЕДМЕТЫ'. На платформе Chem3D вы можете изучать молекулярные структуры! 🧪",
+                    history: "Для изучения истории в 3D формате используйте платформу CyArk. Совершите виртуальный тур по историческим памятникам мира! 🏛️",
+                    geography: "С помощью Google Earth 3D исследуйте весь мир виртуально. Смотрите горы, океаны и города! 🌏",
+                    music: "Изучайте и создавайте музыку с Chrome Music Lab! Интерактивные инструменты ждут вас. 🎵",
+                    biology: "Смотрите 3D модели по биологии в разделе '3D ПРЕДМЕТЫ'. Изучайте клетки, органы и живые организмы! 🧬",
+                    math: "Помогу с математикой! От алгебры до геометрии - задавайте вопросы, объясню. 📐",
+                    homework: "Помогу с домашним заданием! По какому предмету и теме нужна помощь? Присылайте задачу, решим вместе! 📚",
+                    thanks: "Пожалуйста! Всегда готов помочь. Есть ещё вопросы? 😊",
+                    default: `"${message}" - интересный вопрос! Если перефразируете или укажете конкретный предмет/тему, смогу дать более точный ответ. 🤔`
+                },
+                en: {
+                    greeting: "Hello! How can I help you? 😊",
+                    physics: "To learn physics through interactive simulations, go to '3D SUBJECTS' section and choose Physics. PhET offers many experiments! ⚛️",
+                    chemistry: "You can find 3D molecules and chemistry experiments in '3D SUBJECTS' section. Study molecular structures on Chem3D platform! 🧪",
+                    history: "To study history in 3D format, use CyArk platform. Take a virtual tour of world historical monuments! 🏛️",
+                    geography: "Explore the whole world virtually with Google Earth 3D. See mountains, oceans, and cities! 🌏",
+                    music: "Learn and create music with Chrome Music Lab! Interactive tools await you. 🎵",
+                    biology: "See 3D biology models in '3D SUBJECTS' section. Study cells, organs, and living organisms! 🧬",
+                    math: "I'll help with math! From algebra to geometry - ask questions, I'll explain. 📐",
+                    homework: "I'll help with homework! Which subject and topic do you need help with? Send the problem, we'll solve it together! 📚",
+                    thanks: "You're welcome! Always ready to help. Any other questions? 😊",
+                    default: `"${message}" - interesting question! If you rephrase or specify a particular subject/topic, I can give a more accurate answer. 🤔`
+                }
+            };
+
+            const langResponses = responses[currentLang];
+
+            // Greetings
+            if (/(salom|assalomu|hello|hi|hey|привет|здравствуй)/i.test(lower)) {
+                return langResponses.greeting;
+            }
+
+            // Subjects
+            if (/(fizika|физика|physics)/i.test(lower)) {
+                return langResponses.physics;
+            }
+            if (/(kimyo|химия|chemistry)/i.test(lower)) {
+                return langResponses.chemistry;
+            }
+            if (/(tarix|история|history)/i.test(lower)) {
+                return langResponses.history;
+            }
+            if (/(geografiya|география|geography)/i.test(lower)) {
+                return langResponses.geography;
+            }
+            if (/(musiqa|музыка|music)/i.test(lower)) {
+                return langResponses.music;
+            }
+            if (/(biologiya|биология|biology)/i.test(lower)) {
+                return langResponses.biology;
+            }
+            if (/(matematik|математика|math)/i.test(lower)) {
+                return langResponses.math;
+            }
+
+            // Homework
+            if (/(uyga vazifa|homework|домашнее задание|домашка)/i.test(lower)) {
+                return langResponses.homework;
+            }
+
+            // Thanks
+            if (/(rahmat|tashakkur|thanks|спасибо|благодарю)/i.test(lower)) {
+                return langResponses.thanks;
+            }
+
+            return langResponses.default;
+        }
+
+        async function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message === '' || isProcessing) return;
+
+            isProcessing = true;
+            chatbotSend.disabled = true;
+            
+            addMessage(message, true);
+            chatbotInput.value = '';
+
+            showTypingIndicator();
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+                
+                const response = getAIResponse(message);
+                removeTypingIndicator();
+                addMessage(response);
+            } catch (error) {
+                removeTypingIndicator();
+                const errorMessages = {
+                    uz: "Kechirasiz, xatolik yuz berdi. Qaytadan urinib ko'ring. 😔",
+                    ru: "Извините, произошла ошибка. Попробуйте снова. 😔",
+                    en: "Sorry, an error occurred. Please try again. 😔"
+                };
+                addMessage(errorMessages[currentLang]);
+            } finally {
+                isProcessing = false;
+                chatbotSend.disabled = false;
+                chatbotInput.focus();
+            }
+        }
+
+        chatbotSend.addEventListener('click', sendMessage);
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victus Ta'lim Platformasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .subjects-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 0 0 20px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .subject-card:hover::before {
+            left: 100%;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .subject-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            transition: all 0.3s ease;
+        }
+
+        .subject-card:hover .subject-icon {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .physics .subject-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .history .subject-icon {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            box-shadow: 0 10px 25px rgba(240, 147, 251, 0.4);
+        }
+
+        .geography .subject-icon {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .music .subject-icon {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+            box-shadow: 0 10px 25px rgba(67, 233, 123, 0.4);
+        }
+
+        .chemistry .subject-icon {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+            box-shadow: 0 10px 25px rgba(250, 112, 154, 0.4);
+        }
+
+        .subject-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .subject-description {
+            color: #7f8c8d;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1.05em;
+        }
+
+        .subject-link {
+            display: inline-block;
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .subject-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .physics .subject-link {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .history .subject-link {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .geography .subject-link {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .music .subject-link {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+
+        .chemistry .subject-link {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #95a5a6;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer h3 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .team-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .team-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .subjects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .subjects-grid-bottom {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .subjects-grid-bottom {
+                grid-template-columns: 1fr;
+            }
+
+            .subject-card {
+                padding: 25px;
+            }
+
+            .subject-title {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 VICTUS TA'LIM PLATFORMASI</h1>
+            <p>Interaktiv va zamonaviy ta'lim resurslari</p>
+        </div>
+
+        <!-- Birinchi qator: 3 ta karta -->
+        <div class="subjects-grid">
+            <!-- Fizika -->
+            <div class="subject-card physics">
+                <div class="subject-icon">⚛️</div>
+                <h2 class="subject-title">Fizika</h2>
+                <p class="subject-description">
+                    PhET interaktiv simulyatsiyalari yordamida fizika qonunlarini o'rganing. 
+                    Eksperimentlar o'tkazing va natijalarni real vaqtda kuzating.
+                </p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span>🔬</span>
+                        <span>100+ simulyatsiya</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>🎯</span>
+                        <span>Interaktiv</span>
+                    </div>
+                </div>
+                <a href="https://phet.colorado.edu/en/simulations/filter?subjects=physics&type=html" 
+                   target="_blank" 
+                   class="subject-link">
+                   Fizikani O'rganish →
+                </a>
+            </div>
+
+            <!-- Tarix -->
+            <div class="subject-card history">
+                <div class="subject-icon">🏛️</div>
+                <h2 class="subject-title">Tarix</h2>
+                <p class="subject-description">
+                    CyArk 3D Explorer bilan dunyoning tarixiy yodgorliklarini virtual sayohat qiling. 
+                    Qadimiy inshootlarni 3D formatda kashf eting.
+                </p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span>🌍</span>
+                        <span>3D sayohat</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>🏺</span>
+                        <span>Tarixiy joylar</span>
+                    </div>
+                </div>
+                <a href="https://www.cyark.org/collections/modern-world/3D-Explorer" 
+                   target="_blank" 
+                   class="subject-link">
+                   Tarixni Kashf Etish →
+                </a>
+            </div>
+
+            <!-- Geografiya -->
+            <div class="subject-card geography">
+                <div class="subject-icon">🌏</div>
+                <h2 class="subject-title">Geografiya</h2>
+                <p class="subject-description">
+                    Google Earth 3D bilan butun sayyoramizni o'rganing. Tog'lar, okeanlar, 
+                    shaharlar va tabiat go'zalliklarini virtual kashf eting.
+                </p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span>🛰️</span>
+                        <span>Sunʼiy yoʻldosh</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>🗺️</span>
+                        <span>3D xaritalar</span>
+                    </div>
+                </div>
+                <a href="https://earth.google.com/web/" 
+                   target="_blank" 
+                   class="subject-link">
+                   Yer Sharini O'rganing →
+                </a>
+            </div>
+        </div>
+
+        <!-- Ikkinchi qator: 2 ta karta -->
+        <div class="subjects-grid-bottom">
+            <!-- Musiqa -->
+            <div class="subject-card music">
+                <div class="subject-icon">🎵</div>
+                <h2 class="subject-title">Musiqa</h2>
+                <p class="subject-description">
+                    Chrome Music Lab bilan musiqani o'rganing va yarating. Interaktiv 
+                    vositalar yordamida o'z kuylaringizni ijod eting.
+                </p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span>🎹</span>
+                        <span>Ijodiy asboblar</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>🎼</span>
+                        <span>Musiqa nazariyasi</span>
+                    </div>
+                </div>
+                <a href="https://musiclab.chromeexperiments.com" 
+                   target="_blank" 
+                   class="subject-link">
+                   Musiqa Yarating →
+                </a>
+            </div>
+
+            <!-- Kimyo -->
+            <div class="subject-card chemistry">
+                <div class="subject-icon">🧪</div>
+                <h2 class="subject-title">Kimyo</h2>
+                <p class="subject-description">
+                    Chem3D bilan molekulalar va kimyoviy birikmalarni 3D formatda o'rganing. 
+                    Murakkab strukturalarni vizualizatsiya qiling.
+                </p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span>⚗️</span>
+                        <span>3D molekulalar</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>🔬</span>
+                        <span>Virtual laboratoriya</span>
+                    </div>
+                </div>
+                <a href="https://chem3d.org/" 
+                   target="_blank" 
+                   class="subject-link">
+                   Kimyoni O'rganing →
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>Bizning Jamoa</h3>
+            <p>Nasrullayev Aminjon • Xudoyberdiyev Zarrux • Xamrokulova Xosiyatbonu</p>
+            <p>Sohibova Jasmina • Olimjonov Ulug'bek</p>
+            <a href="#" class="team-link">Jamoa Haqida Batafsil →</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Victus Classroom</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f2438 0%, #1a3a5c 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a3a5c;
+            font-size: 18px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        .nav-links .btn-3d {
+            background: #1a3a5c;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .nav-links .btn-3d:hover {
+            background: #0f2438;
+            transform: translateY(-2px);
+        }
+
+        /* Subject Section */
+        .subject-section {
+            min-height: 100vh;
+            padding: 150px 80px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Decorative Pattern */
+        .subject-section::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background-image: url("https://static.tildacdn.com/tild3563-3134-4862-b637-313462306166/wmremove-transformed.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            animation: rotatePattern 30s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotatePattern {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .content-area {
+            position: relative;
+            z-index: 1;
+        }
+
+        .subject-title {
+            font-size: 72px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.95);
+            color: #0f2438;
+            padding: 25px 60px;
+            border-radius: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: #fff;
+        }
+
+        .description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        /* 3D Illustration Area */
+        .illustration-area {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .microscope-container {
+            position: relative;
+            width: 500px;
+            height: 600px;
+        }
+
+        /* 3D Microscope Illustration */
+        .microscope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .base {
+            position: absolute;
+            bottom: 50px;
+            width: 400px;
+            height: 80px;
+            background: linear-gradient(to bottom, #5ba3d0, #4a8db8);
+            border-radius: 50%;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                inset 0 -10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .stand {
+            position: absolute;
+            bottom: 130px;
+            width: 120px;
+            height: 300px;
+            background: linear-gradient(to right, #d0d0d0, #f5f5f5);
+            border-radius: 10px;
+            box-shadow: 
+                -5px 0 15px rgba(0, 0, 0, 0.3),
+                5px 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .eyepiece {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 150px;
+            background: linear-gradient(to bottom, #e0e0e0, #fff);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .eyepiece::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #4a8db8;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .objective {
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(to bottom, #c0c0c0, #e8e8e8);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Decorative molecules */
+        .molecule {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .molecule-1 {
+            top: 50px;
+            left: -50px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #ffb700);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+            animation-delay: 0s;
+        }
+
+        .molecule-2 {
+            top: 150px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #ffa500, #ff8c00);
+            box-shadow: 0 5px 20px rgba(255, 165, 0, 0.5);
+            animation-delay: 1s;
+        }
+
+        .molecule-3 {
+            top: 100px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, #ffcc00, #ffaa00);
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.5);
+            animation-delay: 0.5s;
+        }
+
+        .molecule-4 {
+            bottom: 200px;
+            left: -40px;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, #ffc107, #ff9800);
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.5);
+            animation-delay: 1.5s;
+        }
+
+        .molecule-5 {
+            top: 280px;
+            left: 0px;
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle at 30% 30%, #ffb347, #ff9a33);
+            box-shadow: 0 5px 20px rgba(255, 179, 71, 0.5);
+            animation-delay: 0.8s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) translateX(0);
+            }
+            25% { 
+                transform: translateY(-15px) translateX(5px);
+            }
+            50% { 
+                transform: translateY(-5px) translateX(-5px);
+            }
+            75% { 
+                transform: translateY(-20px) translateX(3px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            nav {
+                padding: 20px 40px;
+            }
+
+            .subject-section {
+                padding: 130px 40px 60px;
+                gap: 60px;
+            }
+
+            .subject-title {
+                font-size: 56px;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .subject-section {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .illustration-area {
+                order: -1;
+            }
+
+            .microscope-container {
+                width: 400px;
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 14px;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .subject-section {
+                padding: 100px 20px 60px;
+            }
+
+            .subject-title {
+                font-size: 42px;
+            }
+
+            .explore-btn {
+                font-size: 22px;
+                padding: 20px 40px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .microscope-container {
+                width: 300px;
+                height: 400px;
+                transform: scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="./_UKMJNHBGVSFD__1_.png" alt="Victus Classroom">
+        </div>
+        <ul class="nav-links">
+            <li><a href="landing-page.html">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#materials">Materiallar</a></li>
+            <li><a href="#3d" class="btn-3d">3D Modellar</a></li>
+        </ul>
+    </nav>
+
+    <section class="subject-section">
+        <div class="content-area">
+            <h1 class="subject-title">BIOLOGY</h1>
+    <a href="https://www.olabs.edu.in/?sub=79" class="explore-btn" target="_blank" rel="noopener noreferrer"> Explore 3D </a>
+            <p class="description">
+               Bu sizni biolgiyadan kuchli va aniq urganishingizga yordam beradi
+            </p>
+        </div>
+
+        <div class="illustration-area">
+            <div class="microscope-container">
+                <div class="microscope">
+                    <div class="base"></div>
+                    <div class="stand"></div>
+                    <div class="eyepiece"></div>
+                    <div class="objective"></div>
+                    
+                    <!-- Floating molecules -->
+                    <div class="molecule molecule-1"></div>
+                    <div class="molecule molecule-2"></div>
+                    <div class="molecule molecule-3"></div>
+                    <div class="molecule molecule-4"></div>
+                    <div class="molecule molecule-5"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            } else {
+                nav.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
